@@ -1,0 +1,42 @@
+[PHY]   SSB position provided
+[NR_PHY]   Starting sync detection
+[PHY]   [UE thread Synch] Running Initial Synch 
+[NR_PHY]   Starting cell search with center freq: 3619200000, bandwidth: 106. Scanning for 1 number of GSCN.
+[NR_PHY]   Scanning GSCN: 0, with SSB offset: 516, SSB Freq: 0.000000
+[PHY]   Initial sync: pbch decoded sucessfully, ssb index 0
+[PHY]   pbch rx ok. rsrp:51 dB/RE, adjust_rxgain:-1 dB
+[NR_PHY]   Cell Detected with GSCN: 0, SSB SC offset: 516, SSB Ref: 0.000000, PSS Corr peak: 99 dB, PSS Corr Average: 61
+[PHY]   [UE0] In synch, rx_offset 460800 samples
+[PHY]   [UE 0] Measured Carrier Frequency offset 3 Hz
+[PHY]   Initial sync successful, PCI: 0
+[PHY]   HW: Configuring channel 0 (rf_chain 0): setting tx_freq 3619200003 Hz, rx_freq 3619200003 Hz, tune_offset 0
+[PHY]   Got synch: hw_slot_offset 30, carrier off 3 Hz, rxgain 0.000000 (DL 3619200003.000000 Hz, UL 3619200003.000000 Hz)
+[PHY]   UE synchronized! decoded_frame_rx=18 UE->init_sync_frame=0 trashed_frames=518
+[PHY]   Resynchronizing RX by 460800 samples
+[HW]   received write reorder clear context
+[NR_RRC]   SIB1 decoded
+[NR_MAC]   TDD period index = 6, based on the sum of dl_UL_TransmissionPeriodicity from Pattern1 (5.000000 ms) and Pattern2 (0.000000 ms): Total = 5.000000 ms
+[NR_MAC]   Set TDD configuration period to: 8 DL slots, 3 UL slots, 10 slots per period (NR_TDD_UL_DL_Pattern is 7 DL slots, 2 UL slots, 6 DL symbols, 4 UL symbols)
+[NR_MAC]   Configured 1 TDD patterns (total slots: pattern1 = 10, pattern2 = 0)
+[PHY]   N_TA_offset changed from 0 to 800
+[MAC]   Initialization of 4-Step CBRA procedure
+[NR_MAC]   PRACH scheduler: Selected RO Frame 541, Slot 19, Symbol 0, Fdm 0
+[PHY]   PRACH [UE 0] in frame.slot 541.19, placing PRACH in position 2828, Msg1/MsgA-Preamble frequency start 0 (k1 0), preamble_offset 14, first_nonzero_root_idx 0, preambleIndex = 59
+[PHY]   [UE 0] RAR-Msg2 decoded
+[NR_MAC]   [UE 0][RAPROC][RA-RNTI 010b] Got BI RAR subPDU 5 ms
+[NR_MAC]   [UE 0][RAPROC][RA-RNTI 010b] Got RAPID RAR subPDU
+[NR_MAC]   [UE 0][RAPROC][542.10] Found RAR with the intended RAPID 59
+[MAC]   received TA command 31
+[NR_MAC]   [RAPROC][542.19] RA-Msg3 transmitted
+[MAC]   [UE 0][548.1][RAPROC] 4-Step RA procedure succeeded. CBRA: Contention Resolution is successful.
+[NR_RRC]   [UE0][RAPROC] Logical Channel DL-CCCH (SRB0), Received NR_RRCSetup
+[NR_MAC]   Failed to init lcids_bj_pos: mac->lc_ordered_list.count = 0
+[RLC]   Added srb 1 to UE 0
+[MAC]   [UE 0] Applying CellGroupConfig from gNodeB
+[NR_RRC]   State = NR_RRC_CONNECTED
+[NAS]   [UE 0] Received NR_NAS_CONN_ESTABLISH_IND: asCause 0
+[NAS]   Generate Initial NAS Message: Registration Request
+[NR_PHY]   [UE 0] RSRP = -42 dBm
+[NR_RRC]   [UE 0][RAPROC] Logical Channel UL-DCCH (SRB1), Generating RRCSetupComplete (bytes33)
+[NR_PHY]   [UE 0] RSRP = -42 dBm
+[NR_PHY]   [UE 0] RSRP = -42 dBm
