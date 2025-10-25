@@ -15,11 +15,11 @@ AI-driven validation and CI/CD framework for wireless system testing.
    cd 6G-Valid8
 
 2. **Create and activate a virtual environment**
-    python3 -m venv .venv
+    ```python3 -m venv .venv
     source .venv/bin/activate
 
 3. **Install dependencies**
-    pip install -r backend/requirements.txt
+    ```pip install -r backend/requirements.txt
 
 4. **Run the backend**
-    uvicorn backend.main:app --reload
+    ```uvicorn backend.main:app --reload
