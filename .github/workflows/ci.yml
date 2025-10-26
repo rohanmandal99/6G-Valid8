@@ -13,21 +13,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # Step 1: Checkout the repository
+      # Step: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Python 3.12
+      # Step: Set up Python 3.12
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
-      # Step 3: Check the directory structure (for debugging)
+      # Step: Check the directory structure (for debugging)
       - name: List directory contents
         run: ls -la
 
-      # Step 4: Install dependencies
+      # Step: Setup virtual environment
+      - name: Create virtual environment
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+
+      # Step: Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
