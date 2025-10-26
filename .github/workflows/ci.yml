@@ -26,11 +26,16 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install pytest flake8
 
-    - name: Set PYTHONPATH
+    - name: Check Python Path
+      run: |
+        echo "Current PYTHONPATH: $PYTHONPATH"
+        python -c "import sys; print(sys.path)"
+
+    - name: Set PYTHONPATH and run tests
       run: |
         export PYTHONPATH=$(pwd)/backend
-        echo "PYTHONPATH=$PYTHONPATH" # Verify the path
-        pytest -v --disable-warnings
+        echo "PYTHONPATH=$PYTHONPATH"
+        pytest --maxfail=1 --disable-warnings -v
 
     
     - name: Run pytest
