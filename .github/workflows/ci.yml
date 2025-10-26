@@ -7,29 +7,45 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.12'
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
 
-      - name: Install dependencies
-        run: |
-          python -m venv .venv
-          . .venv/bin/activate
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python3 -m venv .venv
+        python3 -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pytest flake8
 
-      - name: Set PYTHONPATH
-        run: |
-          echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
-          echo "PYTHONPATH is set to: $(pwd)/backend"
+    - name: Check Python Path
+      run: |
+        echo "Current PYTHONPATH: $PYTHONPATH"
+        python -c "import sys; print(sys.path)"
 
-      - name: Run tests
-        run: |
-          . .venv/bin/activate
-          pytest --maxfail=1 --disable-warnings -v
+    - name: Set PYTHONPATH and run tests
+      run: |
+        export PYTHONPATH=$(pwd)/backend
+        echo "PYTHONPATH=$PYTHONPATH"
+        pytest --maxfail=1 --disable-warnings -v
+
+    
+    - name: Run pytest
+      run: |
+        source .venv/bin/activate
+        pytest -v > result.log || tail -n 10 result.log
+
+
+    - name: Upload test results (artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-results
+        path: result.log
