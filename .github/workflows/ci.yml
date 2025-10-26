@@ -28,7 +28,10 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        export PYTHONPATH=./backend
+        export PYTHONPATH=$(pwd)/backend
+        echo "PYTHONPATH=$PYTHONPATH" # Verify the path
+        pytest -v --disable-warnings
+
     
     - name: Run pytest
       run: |
