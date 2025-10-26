@@ -1,6 +1,3 @@
-name: Set PYTHONPATH
-run: echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
-
 name: CI - 6G-Valid8 Backend
 
 on:
@@ -35,6 +32,10 @@ jobs:
         # warn about style issues, but don’t fail the build
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+    - name: Set PYTHONPATH
+      run: |
+        echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
+    
     - name: Run pytest
       run: |
         pytest -v > result.log
