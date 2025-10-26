@@ -38,8 +38,9 @@ jobs:
     
     - name: Run pytest
       run: |
-        pytest -v > result.log
-        cat result.log
+        . .venv/bin/activate
+        pytest -v > result.log || tail -n 10 result.log
+
 
     - name: Upload test results (artifact)
       uses: actions/upload-artifact@v4
