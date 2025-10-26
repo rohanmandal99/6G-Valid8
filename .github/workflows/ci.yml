@@ -38,7 +38,7 @@ jobs:
     
     - name: Run pytest
       run: |
-        . .venv/bin/activate
+        source .venv/bin/activate
         pytest -v > result.log || tail -n 10 result.log
 
 
