@@ -35,9 +35,7 @@ jobs:
       run: |
         export PYTHONPATH=$(pwd)/backend
         echo "PYTHONPATH=$PYTHONPATH"
-        pytest --maxfail=1 --disable-warnings -v
 
-    
     - name: Run pytest
       run: |
         source .venv/bin/activate
