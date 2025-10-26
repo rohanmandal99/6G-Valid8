@@ -28,7 +28,7 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        export PYTHONPATH=$(pwd)/backend
+        export PYTHONPATH=./backend
     
     - name: Run pytest
       run: |
