@@ -28,7 +28,7 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        echo "PYTHONPATH=$(pwd)/backend" >> $GITHUB_ENV
+        export PYTHONPATH=$(pwd)/backend
     
     - name: Run pytest
       run: |
