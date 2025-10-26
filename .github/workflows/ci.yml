@@ -35,7 +35,8 @@ jobs:
 
       # Step 5: Verify the working directory (optional)
       - name: Verify Working Directory
-        run: echo "Current directory: $(pwd)"
+        run: |
+          echo "Current directory: $(pwd)"
 
       # Step 6: Run tests with pytest
       - name: Run tests with pytest
