@@ -1,12 +1,14 @@
 # backend/app/db.py
 import sqlite3
 import json
+from pathlib import Path
 from datetime import datetime
 
-DB_PATH = "backend/data/valid8.db"
+DB_PATH = Path(__file__).parent / "data" / "valid8.db"
 
 # Initialize tables
 def init_db():
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
