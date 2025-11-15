@@ -21,7 +21,7 @@ AI-driven validation and CI/CD framework for wireless system testing.
 
 3. **Install dependencies**
     ```bash
-    pip install -r backend/requirements.txt
+    pip install -r requirements.txt
 
 4. **Run the backend**
     ```bash

@@ -6,5 +6,5 @@ __pycache__/
 db.sqlite3
 /artifacts/
 /node_modules/
-backend/data/valid8.db
+backend/app/data/
 backend/sample_logs
