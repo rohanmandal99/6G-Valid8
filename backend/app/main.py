@@ -1,13 +1,19 @@
+from backend.app.db import init_db
+from backend.app.routes import runs
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
-from .db import init_db
-from .routes import runs
 
-app = FastAPI(title="Valid8 Backend")
+app = FastAPI(title="6G-Valid8 Backend")
 
-# Create tables on startup
+# Serve frontend static files
+app.mount("/frontend", StaticFiles(directory="frontend", html=True), name="frontend")
+
+@app.get("/")
+def home():
+    return {"status": "6G-Valid8 Backend Running"}
+
 @app.on_event("startup")
 def startup_event():
     init_db()
 
-# Include routes
 app.include_router(runs.router)
