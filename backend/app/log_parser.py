@@ -1,9 +1,8 @@
 # backend/app/log_parser.py
 
 import re
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 from datetime import datetime
-import json
 
 # ---------------------------------------------------------
 # 1. Timestamp parsing
@@ -16,7 +15,10 @@ TS_PATTERNS = [
 # ---------------------------------------------------------
 # 2. Component extraction
 # ---------------------------------------------------------
-COMP_RE = re.compile(r"^\s*\[?(?P<comp>[A-Z0-9_]{2,20})\]?\s*(?P<rest>.*)", re.IGNORECASE)
+COMP_RE = re.compile(
+    r"^\s*\[?(?P<comp>[A-Z0-9_]{2,20})\]?\s*(?P<rest>.*)",
+    re.IGNORECASE
+)
 
 # ---------------------------------------------------------
 # 3. Metric regexes
@@ -41,19 +43,21 @@ EVENT_PATTERNS = [
 # ---------------------------------------------------------
 # 5. Procedure modules (import here)
 # ---------------------------------------------------------
-from .procedures.ra import RAProcedureParser  # NEW
+from .procedures.ra import RAProcedureParser  # adjust imports for your modules
+# from .procedures.rrc import RRCProcedureParser  # future placeholder
+# from .procedures.ho import HOProcedureParser
 
 # ---------------------------------------------------------
 # Core parsing helpers
 # ---------------------------------------------------------
-def _extract_timestamp(line: str):
+def _extract_timestamp(line: str) -> str | None:
     for p in TS_PATTERNS:
         m = p.match(line)
         if m:
             return m.group("ts")
     return None
 
-def _extract_component_and_msg(line: str):
+def _extract_component_and_msg(line: str) -> tuple[str | None, str]:
     original = line.strip()
     for p in TS_PATTERNS:
         m = p.match(original)
@@ -75,7 +79,7 @@ def _extract_metrics(line: str) -> Dict[str, Any]:
         metrics["evm"] = float(m.group(1))
     return metrics
 
-def _classify_event_type(line: str):
+def _classify_event_type(line: str) -> str:
     for et, patt in EVENT_PATTERNS:
         if patt.search(line):
             return et
@@ -84,13 +88,12 @@ def _classify_event_type(line: str):
 # ---------------------------------------------------------
 # 6. MAIN: Parse log into events & push to procedures
 # ---------------------------------------------------------
-def parse_log_data(log_data: str):
-    events = []
+def parse_log_data(log_data: str) -> Dict[str, Any]:
+    events: List[Dict[str, Any]] = []
     procedures = {
         "ra": RAProcedureParser(),
-        # "rrc": RRCProcedureParser(),  # future
+        # "rrc": RRCProcedureParser(),
         # "ho": HOProcedureParser(),
-        # etc...
     }
 
     for raw_line in log_data.splitlines():
@@ -98,16 +101,17 @@ def parse_log_data(log_data: str):
         if not line:
             continue
 
+        comp, msg = _extract_component_and_msg(line)
         ev = {
             "ts": _extract_timestamp(line),
-            "component": _extract_component_and_msg(line)[0],
-            "message": _extract_component_and_msg(line)[1],
+            "component": comp,
+            "message": msg,
             "metrics": _extract_metrics(line),
             "event_type": _classify_event_type(line),
         }
         events.append(ev)
 
-        # Send event to each procedure module
+        # Send event to procedure modules
         for p in procedures.values():
             p.consume(ev)
 
@@ -118,3 +122,16 @@ def parse_log_data(log_data: str):
         "events": events,
         "procedures": procedure_results,
     }
+
+# ---------------------------------------------------------
+# 7. Helper: Build compact summary string for LLM
+# ---------------------------------------------------------
+def events_to_summary(events: List[Dict[str, Any]]) -> str:
+    if not events:
+        return "No events recorded."
+
+    components = {e.get("component", "unknown") for e in events}
+    types = {e.get("event_type", "unknown") for e in events}
+    total = len(events)
+
+    return f"Components: {', '.join(components)}; Event types: {', '.join(types)}; Total events: {total}"

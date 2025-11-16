@@ -1,51 +1,21 @@
-# backend/app/db.py
-import sqlite3
-import json
-from pathlib import Path
-from datetime import datetime
+from sqlmodel import SQLModel, create_engine, Session
+import os
 
-DB_PATH = Path(__file__).parent / "data" / "valid8.db"
+DB_FILE = "backend/app/data/valid8.db"
+DB_URL = f"sqlite:///{DB_FILE}"
 
-# Initialize tables
+# Ensure the data directory exists
+os.makedirs(os.path.dirname(DB_FILE), exist_ok=True)
+
+# Create engine
+engine = create_engine(DB_URL, echo=True)
+
 def init_db():
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    cur = conn.cursor()
+    """Initialize the database and create tables."""
+    from .models import Run, Event, Procedure
+    SQLModel.metadata.create_all(engine)
 
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS runs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        created_at TEXT,
-        source_file TEXT
-    )
-    """)
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS events (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        run_id INTEGER,
-        ts TEXT,
-        component TEXT,
-        event_type TEXT,
-        msg TEXT,
-        metrics_json TEXT,
-        FOREIGN KEY(run_id) REFERENCES runs(id)
-    )
-    """)
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS procedures (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        run_id INTEGER,
-        name TEXT,
-        result_json TEXT,
-        FOREIGN KEY(run_id) REFERENCES runs(id)
-    )
-    """)
-
-    conn.commit()
-    conn.close()
-
-def get_db():
-    return sqlite3.connect(DB_PATH)
+def get_session():
+    """FastAPI dependency for DB session."""
+    with Session(engine) as session:
+        yield session

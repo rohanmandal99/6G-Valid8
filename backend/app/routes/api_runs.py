@@ -56,25 +56,4 @@ def process_log_file(file_path: str, file_name: str):
     # Optional: remove temp file after processing
     os.remove(file_path)
 
-@router.post("/upload_log")
-async def upload_log(file: UploadFile, background_tasks: BackgroundTasks):
-    """
-    Upload a log file.
-    Parsing & DB insertion is done in the background for large files.
-    Returns a run_id immediately.
-    """
-    # Save uploaded file to a temp location
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".log") as tmp:
-        while chunk := await file.read(1024*1024):  # 1 MB chunks
-            tmp.write(chunk)
-        tmp_path = tmp.name
 
-    # Schedule background processing
-    background_tasks.add_task(process_log_file, tmp_path, file.filename)
-
-    # Immediate response
-    return {
-        "status": "processing",
-        "message": "Log is being parsed in background",
-        "file_name": file.filename
-    }
