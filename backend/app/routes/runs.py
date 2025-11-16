@@ -1,28 +1,23 @@
-from fastapi import APIRouter, UploadFile, BackgroundTasks, Depends, HTTPException
-from sqlmodel import Session
+from fastapi import APIRouter, Depends, HTTPException
+from sqlmodel import Session, select
 from ..db import get_session
+from fastapi import UploadFile, BackgroundTasks
 from ..models import Run, Event, Procedure
-from typing import List
+from ..ai import generate_run_summary_async
+import asyncio
 
 router = APIRouter()
 
 @router.get("/runs/{run_id}")
-def get_run(run_id: int, session: Session = Depends(get_session)):
+async def get_run(run_id: int, session: Session = Depends(get_session)):
     run = session.get(Run, run_id)
     if not run:
         raise HTTPException(status_code=404, detail="Run not found")
-
-    # Force loading related events and procedures
-    run.events
-    run.procedures
-
-    # Generate AI summary
-    ai_summary = {
-        "total_events": len(run.events),
-        "total_procedures": len(run.procedures),
-        "example_ai_note": "AI analysis will appear here."  # placeholder for LLM analysis
-    }
-
+    
+    events = session.exec(select(Event).where(Event.run_id == run_id)).all()
+    procedures = session.exec(select(Procedure).where(Procedure.run_id == run_id)).all()
+    
+    ai_summary = await generate_run_summary_async(run, events, procedures)
     return {"run": run, "ai_summary": ai_summary}
 
 
