@@ -1,37 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6G-Valid8</title>
-
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#2563EB",
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-100 text-gray-900">
-
-    <header class="bg-white shadow p-4">
-        <h1 class="text-2xl font-bold text-primary">6G-Valid8</h1>
-    </header>
-
-    <main class="p-6">
-        <div id="app" class="text-lg">
-            Loading...
-        </div>
-    </main>
-
-    <script src="app.js"></script>
-</body>
+    <title>frontend</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
