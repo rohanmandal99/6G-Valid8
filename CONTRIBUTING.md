@@ -1,7 +1,7 @@
 # Contributing to 6G-Valid8
 
 First off, thank you for your interest in contributing! 
-I am building **6G-Valid8**, an open AI-assisted wireless validation & triage platform to help engineers debug and analyze 5G and the next generation network behavior faster.
+I am building **6G-Valid8**, an open AI-assisted wireless validation platform to help engineers debug and analyze 5G and the next generation network behavior faster.
 
 ---
 
