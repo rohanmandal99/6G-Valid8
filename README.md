@@ -1,11 +1,11 @@
 # 6G-Valid8
-AI-driven validation and CI/CD framework for wireless system testing.
+AI-assisted Wireless Validation Tool for 5G/6G Systems.
 
 ## Structure
 - backend/ : FastAPI server, log parsers, AI triage modules
-- contributing.md: How to contribute
+- contributing.md : How to contribute
 - docs/ : project notes and references
-- frontend/ : (planned to be added later)
+- frontend/ : React-based UI
 
 ## Getting Started
 
@@ -15,14 +15,27 @@ AI-driven validation and CI/CD framework for wireless system testing.
    cd 6G-Valid8
 
 2. **Create and activate a virtual environment**
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
 
 3. **Install dependencies**
-    ```bash
-    pip install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
 
 4. **Run the backend**
-    ```bash
-    uvicorn backend.main:app --reload
+   ```bash
+   uvicorn backend.main:app --reload
+
+5. **Ollama Setup**
+   ```bash
+   ollama pull llama3.2:3b  
+   ollama serve 
+   
+6.  **Frontend Setup**
+   ```bash
+   cd frontend
+   npm install 
+   npm run dev 
+    
+
