@@ -1,14 +1,14 @@
 # backend/app/routes/llm.py
 from fastapi import APIRouter
-import httpx
+from pydantic import BaseModel
+from backend.app.llm_client import analyze_events_llm
 
-router = APIRouter()
+router = APIRouter(prefix="/llm")
 
-@router.get("/health")
-async def llm_health():
-    try:
-        async with httpx.AsyncClient(timeout=3) as client:
-            r = await client.get("http://localhost:11434/api/tags")
-            return {"ok": r.status_code == 200, "models": r.json()}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
+class LLMPayload(BaseModel):
+    events: list  # The parsed log JSON from frontend
+
+@router.post("/analyze")
+async def analyze(payload: LLMPayload):
+    result = await analyze_events_llm(payload.dict())
+    return {"summary": result}

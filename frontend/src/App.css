@@ -1,42 +1,118 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
   padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.header {
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.header p {
+  font-size: 1.1rem;
+  color: #555;
 }
 
 .card {
-  padding: 2em;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+.upload-card {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.file-input {
+  margin-top: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #0078d4;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005ea3;
+}
+
+.scroll-box {
+  max-height: 300px;
+  overflow: auto;
+  background: #f1f1f1;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.results-container {
+  margin-top: 2rem;
+}
+
+.accordion details summary {
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  color: #0078d4;
+}
+
+.success-text {
+  color: green;
+}
+
+.error-text {
+  color: red;
+}
+
+.overview-card {
+  background: #eef3f9;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.reset-button {
+  background: #ff4d4f;
+  margin-top: 1rem;
+}
+
+.reset-button:hover {
+  background: #d9363e;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  color: #777;
+  font-size: 0.9rem;
 }

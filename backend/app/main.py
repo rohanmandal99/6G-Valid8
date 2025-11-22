@@ -1,10 +1,13 @@
 from backend.app.db import init_db
-from backend.app.routes import runs
+#from backend.app.routes import runs
+from backend.app.routes import runs, parse, llm
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="6G-Valid8 Backend")
+app.include_router(parse.router)
+app.include_router(llm.router)
 
 
 # Allow React dev server to access
@@ -33,3 +36,4 @@ def startup_event():
     init_db()
 
 app.include_router(runs.router)
+app.include_router(parse.router)
