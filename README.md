@@ -25,7 +25,7 @@ AI-assisted Wireless Validation Tool for 5G/6G Systems.
 
 4. **Run the backend**
    ```bash
-   uvicorn backend.main:app --reload
+   uvicorn backend.app.main:app --reload
 
 5. **Ollama Setup**
    ```bash
